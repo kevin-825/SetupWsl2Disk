@@ -1,0 +1,64 @@
+﻿{
+    "Wsl2DisksConf":  [
+                          {
+                              "EntryID":  "0",
+                              "DiskType":  "PhysicalDisk",
+                              "Identifier":  "5CD2_E47C_8ED0_0100.",
+                              "PartsToMnt":  {
+                                                 "1":  "disk1"
+                                             },
+                              "DiskSize":  "27 GB",
+                              "DiskName":  "INTEL MEMPEK1J032GA",
+                              "DrvLetter":  "",
+                              "Path":  ""
+                          },
+                          {
+                              "EntryID":  "1",
+                              "DiskType":  "PhysicalDisk",
+                              "Identifier":  "5CD2_E4AE_52AF_0100.",
+                              "PartsToMnt":  {
+                                                 "1":  "disk2"
+                                             },
+                              "DiskSize":  "110 GB",
+                              "DiskName":  "INTEL SSDPEK1A118GA",
+                              "DrvLetter":  "",
+                              "Path":  ""
+                          },
+                          {
+                              "EntryID":  "2",
+                              "DiskType":  "RamDisk",
+                              "Identifier":  "URDVHD00",
+                              "PartsToMnt":  {
+                                                 "1":  "ramdisk5"
+                                             },
+                              "DiskSize":  "16 GB",
+                              "DiskName":  "ieung Ultra RAMDisk",
+                              "DrvLetter":  "",
+                              "Path":  ""
+                          },
+                          {
+                              "EntryID":  "3",
+                              "DiskType":  "MsftVHD",
+                              "Identifier":  "60022480978B53F89B34F4521E87F8AD",
+                              "PartsToMnt":  {
+                                                 "1":  "vhd0"
+                                             },
+                              "DiskSize":  "128 GB",
+                              "DiskName":  "Msft Virtual Disk",
+                              "DrvLetter":  "",
+                              "Path":  "D:\\VM\\VirtualHardDisks\\vhd0.vhdx"
+                          },
+                          {
+                              "EntryID":  "4",
+                              "DiskType":  "MsftVHD",
+                              "Identifier":  "60022480B964AC50D4C82708BFC1E540",
+                              "PartsToMnt":  {
+                                                 "1":  "vhd1"
+                                             },
+                              "DiskSize":  "4 GB",
+                              "DiskName":  "Msft Virtual Disk",
+                              "DrvLetter":  "",
+                              "Path":  "D:\\VM\\VirtualHardDisks\\vhd1.vhdx"
+                          }
+                      ]
+}
