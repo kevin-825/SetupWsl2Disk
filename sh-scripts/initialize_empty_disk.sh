@@ -9,7 +9,9 @@
 # Exit immediately if a command exits with a non-zero status, 
 # and treat unset variables as an error.
 set -euo pipefail
-source sh-scripts/get_device_by_serial.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+echo "Script is running from: $SCRIPT_DIR"
+source $SCRIPT_DIR/get_device_by_serial.sh
 
 format_partition_ext4() {
     local dev_path="$1"

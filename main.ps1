@@ -15,7 +15,7 @@ function Main {
 
     process {
         Assert-Administrator -ScriptPath $PSCommandPath
-        
+        Invoke-WslVhdxAttachmentManager -Action Attach
         Write-Host "[INFO] Starting WSL2 Disk Orchestration..." -ForegroundColor Cyan
         CheckInitializeEmptyDisk -ConfigFileName "$f"
 
@@ -23,6 +23,9 @@ function Main {
 
         if ($genBashScript) {
             Generate-AliasScript -ConfigFileName "$f"
+            $localFile  = ".\.bash_aliases_1"
+            $targetFile1 = "\\wsl$\Ubuntu\home\kevin\.bash_aliases_1"
+            Sync-FileIfChanged_contentbased -SourcePath $localFile -TargetPath $targetFile1
         }
 
         $scriptWinPath = Join-Path $PSScriptRoot "sh-scripts\last_step.sh"
@@ -30,10 +33,6 @@ function Main {
         $wslUser = (wsl whoami).Trim()
         & wsl --user root --exec bash $scriptLinuxPath $wslUser
         
-        $localFile  = ".\.bash_aliases_1"
-        $targetFile1 = "\\wsl$\Ubuntu\home\kevin\.bash_aliases_1"
-        Sync-FileIfChanged_contentbased -SourcePath $localFile -TargetPath $targetFile1
-
         Write-Host "[INFO] Workflow completed successfully." -ForegroundColor Green
     }
 }

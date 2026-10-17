@@ -105,13 +105,8 @@ function CheckInitializeEmptyDisk {
 
         Write-Host "`n[INFO] Inspecting disk states from '$ConfigFileName'..." -ForegroundColor Cyan
         # Resolve local script path and translate to WSL Linux path
-        $scriptWinPath = Join-Path $PSScriptRoot "..\sh-scripts\initialize_empty_disk.sh"
-        if (-not (Test-Path $scriptWinPath)) {
-            Write-Error "Initialization script not found at: $scriptWinPath"
-            continue
-        }
-
-        $scriptLinuxPath = Translate-WinPath2LinuxPath -WinPath $scriptWinPath
+        $wslProjectDir = Translate-WinPath2LinuxPath $PSScriptRoot
+        Write-Host "wslProjectDir: $wslProjectDir"
         # 2. Loop through each configured entry
         foreach ($entry in $entries) {
             $diskNum = $null
@@ -144,7 +139,8 @@ function CheckInitializeEmptyDisk {
 
                 # Execute initialization script inside WSL2 as root user (--user root)
                 Write-Host "   Running initialization script as root..." -ForegroundColor Cyan
-                & wsl --user root --exec bash $scriptLinuxPath $($entry.Identifier) $($entry.DiskType)
+                wsl.exe -u root bash -lc `
+                "cd '$wslProjectDir' && ../sh-scripts/initialize_empty_disk.sh '$($entry.Identifier)' '$($entry.DiskType)'"
 
                 if ($LASTEXITCODE -eq 0) {
                     Write-Host "   [SUCCESS] Disk $diskNum initialized successfully." -ForegroundColor Green
@@ -172,7 +168,8 @@ function CheckInitializeEmptyDisk {
 
                             # Execute initialization script inside WSL2 as root user with 3 arguments
                             Write-Host "   Running initialization script as root with partition formatting..." -ForegroundColor Cyan
-                            & wsl --user root --exec bash $scriptLinuxPath $($entry.Identifier) $($entry.DiskType) $partNum
+                            wsl.exe -u root bash -lc `
+                            "cd '$wslProjectDir' && ../sh-scripts/initialize_empty_disk.sh '$($entry.Identifier)' '$($entry.DiskType)' '$partNum'"
 
                             if ($LASTEXITCODE -eq 0) {
                                 Write-Host "   [SUCCESS] Partition $partNum on Disk $diskNum formatted successfully." -ForegroundColor Green
