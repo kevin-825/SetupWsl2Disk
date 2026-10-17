@@ -51,6 +51,8 @@ function Bare_mountDisk {
         [Parameter(Mandatory = $true)]
         [int]$diskNum
     )
+    
+    Set-WslDiskOnlineStatus -DiskNumber $diskNum -Off
 
     if ($entry.DiskType -eq "MsftVHD") {
         if (-not $entry.Path) {
@@ -158,7 +160,7 @@ function CheckInitializeEmptyDisk {
                         # Inspect the file system of this specific partition
                         $targetPartition = Get-Partition -DiskNumber $diskNum -PartitionNumber $partNum -ErrorAction SilentlyContinue
                         $targetVolume = $targetPartition | Get-Volume -ErrorAction SilentlyContinue
-                        #Set-WslDiskOnlineStatus -DiskNumber $diskNum -Off
+                        
                         Write-Host " partNum:$partNum  FileSystem:$($targetVolume.FileSystemType) "
                         if ($targetVolume -and $targetVolume.FileSystemType -eq "NTFS") {
                             Write-Host "   [INFO] RamDisk Partition $partNum has NTFS file system. Preparing to reformat..." -ForegroundColor Yellow
